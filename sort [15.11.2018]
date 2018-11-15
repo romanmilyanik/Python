@@ -1,0 +1,29 @@
+# 1. ascending order
+# 2. descending order
+# 3. 2x ascending order
+# 4. 2x descending order
+# 5. by 2 columns in diff way
+
+
+import pandas as pd
+
+data1 = {"ky":[2, 2, 2, 2, 8, 8, 8, 8, 4, 4, 4, 4],
+        "month":[2, 3, 1, 4, 33, 22, 44, 11, 444, 111, 222, 333]}
+data1 = pd.DataFrame(data1)
+
+# sort month - ascending order
+data1.sort_values(by=["month"], inplace=True)
+
+# sort ky - descending order
+data1.sort_values(by=["ky"], inplace=True, ascending=False)
+
+# sort ky & month - ascending order
+data1.sort_values(by=["ky", "month"], inplace=True)
+
+# sort ky & month - descending order
+data1.sort_values(by=["ky", "month"], inplace=True, ascending=False)
+
+#sotr two columns
+data1.sort_values(by=["ky", "month"], ascending=[False, True], inplace=True)
+
+
