@@ -1,0 +1,39 @@
+#https://stackoverflow.com/questions/19960077/how-to-implement-in-and-not-in-for-pandas-dataframe
+
+import os
+import numpy as np
+import pandas as pd
+os.chdir("D:/USERS/ROMAN/WORK/Python/simple_2")
+
+data = {"id":[1, 2, 3, 4],
+        "city":["Istanbul", "Lviv", "Kyiv", "Rivne"],
+        "number":[1200, 1000, 1500, 700]}
+data = pd.DataFrame(data, index = ["first_row", "second_row", "third_row", "fourth_row"])
+#                city  id  number
+#first_row   Istanbul   1    1200
+#second_row      Lviv   2    1000
+#third_row       Kyiv   3    1500
+#fourth_row     Rivne   4     700
+
+data1 = {"id1":[11, 22, 33, 44],
+        "city1":["Istanbul", "Odesa", "Kyiv", "NewYork"]}
+data1 = pd.DataFrame(data1, index = ["first_row", "second_row", "third_row", "fourth_row"])
+#               city1  id1
+#first_row   Istanbul   11
+#second_row     Odesa   22
+#third_row       Kyiv   33
+#fourth_row   NewYork   44
+
+#1# %in% ****************************************************************
+
+data3 = data[data.city.isin(data1.city1)]
+#               city  id  number
+#first_row  Istanbul   1    1200
+#third_row      Kyiv   3    1500
+
+#2# not %in% ****************************************************************
+
+data4 = data[~data.city.isin(data1.city1)]
+#             city  id  number
+#second_row   Lviv   2    1000
+#fourth_row  Rivne   4     700
