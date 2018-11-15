@@ -1,0 +1,24 @@
+
+#https://chrisalbon.com/python/data_wrangling/pandas_delete_duplicates/
+
+import pandas as pd
+
+data = {"id":[1, 2, 2, 4, 5, 5, 7, 8, 9],
+        "city":["Istanbul", "Istanbul", "Istanbul", "Lviv", "Lviv", "Lviv", "Kyiv", "Kyiv", "Rivne"],
+        "number":[1000, 2000, 2000, 4000, 5000, 5000, 7000, 8000, 9000]}
+data = pd.DataFrame(data)
+
+#       city  id  number
+#0  Istanbul   1    1000
+#1  Istanbul   2    2000
+#2  Istanbul   2    2000
+#3      Lviv   4    4000
+#4      Lviv   5    5000
+#5      Lviv   5    5000
+#6      Kyiv   7    7000
+#7      Kyiv   8    8000
+#8     Rivne   9    9000
+
+data.city.unique()
+#array(['Istanbul', 'Lviv', 'Kyiv', 'Rivne'], dtype=object)
+
