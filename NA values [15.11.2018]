@@ -1,0 +1,88 @@
+# 1. Drop missing observations
+# 2. Create a new column full of missing values
+# 3. Drop column if it only contain missing value
+# 4. Fill in missing data with zeros
+# 5. Fill in missing in city with the mean value of city
+# 6. Select the rows of df where "city" is not NaN and "id" is not NaN
+
+#https://chrisalbon.com/python/data_wrangling/pandas_missing_data/
+
+import numpy as np
+import pandas as pd
+
+## Create DataFrame_var.2 ****************************************************************
+data = {"id":[1, 2, 3, 4],
+        "city":["Istanbul", np.nan, "Kyiv", "Rivne"],
+        "date":[np.nan, "2012-01-01", "2014-01-01", "2017-01-01"],
+        "number":[1200, 1000, 1500, 700]}
+data = pd.DataFrame(data, index = ["first_row", "second_row", "third_row", "fourth_row"])
+
+#                city        date  id  number
+#first_row   Istanbul         NaN   1    1200
+#second_row       NaN  2012-01-01   2    1000
+#third_row       Kyiv  2014-01-01   3    1500
+#fourth_row     Rivne  2017-01-01   4     700
+
+#1# Drop missing observations ************************************************************
+
+data_1 = data.dropna()
+#             city        date  id  number
+#third_row    Kyiv  2014-01-01   3    1500
+#fourth_row  Rivne  2017-01-01   4     700
+
+#2# Create a new column full of missing values *******************************************
+
+data_2 = data
+data_2["NA's"] = np.nan
+#                city        date  id  number  NA's
+#first_row   Istanbul         NaN   1    1200   NaN
+#second_row       NaN  2012-01-01   2    1000   NaN
+#third_row       Kyiv  2014-01-01   3    1500   NaN
+#fourth_row     Rivne  2017-01-01   4     700   NaN
+
+#3# Drop column if it only contain missing value *****************************************
+
+data_3 = data.dropna(axis=1)
+#            id  number
+#first_row    1    1200
+#second_row   2    1000
+#third_row    3    1500
+#fourth_row   4     700
+
+#4# Fill in missing data with zeros ******************************************************
+
+data_4 = data.fillna(0)
+#                city        date  id  number
+#first_row   Istanbul           0   1    1200
+#second_row         0  2012-01-01   2    1000
+#third_row       Kyiv  2014-01-01   3    1500
+#fourth_row     Rivne  2017-01-01   4     700
+
+#5# Fill in missing in city with the mean value of city **********************************
+
+data["city"].fillna(data["city"].mean(), inplace=True)                #     ! need numeric
+
+#6# Select the rows of df where "city" is not NaN and "id" is not NaN ********************
+
+data_5 = data[data['city'].notnull() & data['id'].notnull()]
+#                city        date  id  number
+#first_row   Istanbul         NaN   1    1200
+#third_row       Kyiv  2014-01-01   3    1500
+#fourth_row     Rivne  2017-01-01   4     700
+
+#7# **************************************************************************************
+
+data_1 = data.dropna(subset=["city"])
+#                city        date  id  number
+#first_row   Istanbul         NaN   1    1200
+#third_row       Kyiv  2014-01-01   3    1500
+#fourth_row     Rivne  2017-01-01   4     700
+
+
+
+
+
+
+
+
+
