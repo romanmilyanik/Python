@@ -1,0 +1,119 @@
+# 1. CREATE a DataFrame
+# 2. reorder columns in  DataFrame
+# 3. select column(s) in  DataFrame
+# 4. column of DataFrame to np.array
+# 5. write excel "data"
+# 6. drop columns in DataFrame
+# 7. add columns to DataFrame
+# 8. del rows in DataFrame
+# 9. set column type in DataFrame
+# 10. rbind
+# 11. cbind
+# 12. calculated column
+
+#https://www.tutorialspoint.com/python_pandas/python_pandas_dataframe.htm
+#https://chrisalbon.com/python/data_wrangling/pandas_dropping_column_and_rows/
+
+import os
+import numpy as np
+import pandas as pd
+os.chdir("D:/USERS/ROMAN/WORK/Python/simple_2")
+
+#1# Create DataFrame_var.1 ****************************************************************
+df = pd.DataFrame([[1, "Istanbul", "25.01.2014", 1200],
+                   [2, "Lviv", "15.02.2012", 1000],
+                   [3, "Kyiv", "01.03.2014", 1500],
+                   [4, "Rivne", "20.04.2017", 700]
+                   ], columns = ["id", "city", "date", "number"])
+
+##    id      city        date  number
+## 0   1  Istanbul  2014-01-01    1200
+## 1   2      Lviv  2012-01-01    1000
+## 2   3      Kyiv  2014-01-01    1500
+## 3   4     Rivne  2017-01-01     700
+
+df.dtypes
+## id         int64
+## city      object
+## date      object
+## number     int64
+
+## Create DataFrame_var.2 ****************************************************************
+data = {"id":[1, 2, 3, 4],
+        "city":["Istanbul", "Lviv", "Kyiv", "Rivne"],
+        "date":["2014-01-01", "2012-01-01", "2014-01-01", "2017-01-01"],
+        "number":[1200, 1000, 1500, 700]}
+data = pd.DataFrame(data, index = ["first_row", "second_row", "third_row", "fourth_row"])
+
+#                city        date  id  number
+#first_row   Istanbul  2014-01-01   1    1200
+#second_row      Lviv  2012-01-01   2    1000
+#third_row       Kyiv  2014-01-01   3    1500
+#fourth_row     Rivne  2017-01-01   4     700
+
+data.dtypes
+## city      object
+## date      object
+## id         int64
+## number     int64
+
+#2# reorder columns in  DataFrame**********************************************************
+data = data[["id", "city", "date", "number"]]
+
+#3# select column(s) in  DataFrame*********************************************************
+
+data1 = data[["id", "city", "date"]]
+data2 = data[["id"]]
+
+#4# column of DataFrame to np.array********************************************************
+data3 = np.array(data[["id"]], dtype = np.float)
+
+#5# write excel "data" ********************************************************************
+writer = pd.ExcelWriter("simple_excel_file.xlsx", engine='xlsxwriter')
+data.to_excel(writer, index=False)
+writer.save()
+
+#6# drop columns in DataFrame *************************************************************
+df1 = df.drop(["date", "number"], axis=1)
+
+#7# add columns to DataFrame **************************************************************
+vector = np.array([11, 22, 33, 44], dtype = np.float)
+df["dou"] = vector
+
+#8# del rows in DataFrame *****************************************************************
+#https://chrisalbon.com/python/data_wrangling/pandas_dropping_column_and_rows/
+
+data = data.drop(["first_row", "second_row"])     # drop by index
+data = data[data.city != "Istanbul"]              # drop a row if it contains a certain value
+data = data.drop(data.index[0])                   # drop a row by row number
+data = data.drop(data.index[[0,2]])               # drop a row by row number
+data = data.drop(data.index[-1])                  # drop a last row by row
+data = data[:2]                                   # keep top 2
+data = data[:-2]                                  # del last 2
+
+#9# set column type in DataFrame **********************************************************
+df.dtypes
+df["date"] = pd.to_datetime(df["date"])   # to date
+df["number"] = df["number"].astype('float64')   # to float
+
+#10# rbind DataFrame************************************************************************
+df1 = pd.DataFrame([[1, 2], [3, 4]], columns = ["a","b"])
+df2 = pd.DataFrame([[5, 6], [7, 8]], columns = ["a","b"])
+
+df3 = df1.append(df2, ignore_index=True)
+
+#11# cbind DataFrame************************************************************************
+df1 = pd.DataFrame([[1, 2], [3, 4]], columns = ["a","b"])
+df2 = pd.DataFrame([[5, 6], [7, 8]], columns = ["c","d"])
+
+df3 = pd.concat([df1, df2], axis=1, ignore_index=True)
+df3.columns = ["a", "b", "c", "d"]
+
+#12# calculated column *********************************************************************
+data["ID_log"] = np.log(data["id"])
+data["id+number"] = data["id"] + data["number"]
+
+
+
+
+
