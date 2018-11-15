@@ -1,0 +1,89 @@
+#http://pandas.pydata.org/pandas-docs/stable/groupby.html
+#https://chrisalbon.com/python/data_wrangling/pandas_group_rows_by/
+
+import pandas as pd
+
+data = {"id":[1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "city":["Istanbul", "Istanbul", "Istanbul", "Lviv", "Lviv", "Lviv", "Kyiv", "Kyiv", "Rivne"],
+        "number":[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000]}
+data = pd.DataFrame(data)
+
+#       city  id  number
+#0  Istanbul   1    1000
+#1  Istanbul   2    2000
+#2  Istanbul   3    3000
+#3      Lviv   4    4000
+#4      Lviv   5    5000
+#5      Lviv   6    6000
+#6      Kyiv   7    7000
+#7      Kyiv   8    8000
+#8     Rivne   9    9000
+
+group = data["id"].groupby(data["city"])
+
+a = pd.DataFrame(group.sum()).reset_index()                        # sum
+#       city  id
+#0  Istanbul   6
+#1      Kyiv  15
+#2      Lviv  15
+#3     Rivne   9
+
+b = pd.DataFrame(group.count()).reset_index()                      # sum
+#       city  id
+#0  Istanbul   3
+#1      Kyiv   2
+#2      Lviv   3
+#3     Rivne   1
+
+c = pd.DataFrame(group.max()).reset_index()                        # max
+#       city  id
+#0  Istanbul   3
+#1      Kyiv   8
+#2      Lviv   6
+#3     Rivne   9
+
+
+#.agg
+#.aggregate
+#.apply
+#.median
+#.min
+#.name
+#.boxplot
+#.cummin
+#.describe
+#.filter
+#.get_group
+#.height
+#.last
+#.count
+#.cumprod
+#.dtype
+#.first
+#.groups
+#.hist
+#.max
+#.cummax
+#.cumsum
+#.fillna
+#.gender
+#.head
+#.indices
+#.mean
+#.ngroups
+#.plot
+#.rank
+#.std
+#.transform
+#.nth
+#.prod
+#.resample
+#.sum
+#.var
+#.ohlc
+#.quantile
+#.size
+#.tail
+#.weight
+
+
