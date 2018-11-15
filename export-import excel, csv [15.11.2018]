@@ -1,0 +1,29 @@
+# 1. load .csv      #https://chrisalbon.com/python/data_wrangling/pandas_dataframe_importing_csv/
+# 2. write .csv     #https://chrisalbon.com/python/data_wrangling/pandas_saving_dataframe_as_csv/
+# 3. load excel     #https://chrisalbon.com/python/data_wrangling/load_excel_file_into_pandas/
+# 4. write excel    
+
+import os
+import pandas as pd
+os.chdir("D:/USERS/ROMAN/WORK/Python/simple_2")
+
+#1# load .csv ****************************************************************
+df = pd.read_csv("swiss_bank_notes.csv")                  # load a .csv
+df = pd.read_csv("swiss_bank_notes.csv", header=None)     # load a .csv with no headers
+df = pd.read_csv("swiss_bank_notes.csv", names=["col_1", "col_2", "col_3", "col_4", "col_5", "col_6", "col_7", "col_8", ])
+df = pd.read_csv("swiss_bank_notes.csv", na_values=['.']) # load a csv while specifying “.” as missing values
+df = pd.read_csv("swiss_bank_notes.csv", thousands=",")
+
+#2# load .csv ****************************************************************
+df.to_csv("swiss_bank_notes_2.csv")                       # write a .csv with index
+df.to_csv("swiss_bank_notes_3.csv", index=False)          # write a .csv without index
+
+#3# load excel ***************************************************************
+df = pd.read_excel("toread.xlsx")
+df = pd.read_excel("toread.xlsx", sheetname="ark1", skiprows=2)
+
+#4# write excel **************************************************************
+writer = pd.ExcelWriter("towrite.xlsx", engine='xlsxwriter')
+df.to_excel(writer, index=False)
+writer.save()
+
