@@ -1,0 +1,74 @@
+# 1. if                            #https://chrisalbon.com/python/basics/if_and_if_else_statements/
+# 2. if else
+# 3. if  elif  else
+# 4. if into DataFrame             #https://stackoverflow.com/questions/19913659/pandas-conditional-creation-of-a-series-dataframe-column
+# 5. if else into DataFrame        #https://datatofish.com/if-condition-in-pandas-dataframe/
+# 6. if else (| &)into DataFrame   #https://datatofish.com/if-condition-in-pandas-dataframe/
+
+
+#1# if *******************************************************************
+a = 1
+
+if a == 2:
+    print("Yo!")
+    b=10
+
+#2# if else **************************************************************
+b = 4
+
+if b == 3:
+    print("Yo!")
+    z = 5
+else:
+    print("OMG")
+    z = 6
+
+#3# if  elif  else *******************************************************
+c = 8
+
+if c == 1:
+    print("Yo!")
+    y = 1
+elif c == "hz":
+    print("???")
+    y = 2
+else:
+    print("Not!")
+    y = 3
+
+#4# if into DataFrame ****************************************************
+import pandas as pd
+import numpy as np
+
+data1 = {"id":[1, 2, 3, 4, 5, 6, 7, 8],
+        "city":["Istanbul", "Lviv", "Kyiv", "Chop", "Istanbul", "Lviv", "Rivne", "Odesa"]}
+data1 = pd.DataFrame(data1)
+
+data1["home"] = np.where(data1["city"] == "Lviv", "my_home", "not_home")
+
+#5# if else into DataFrame ***********************************************
+import pandas as pd
+import numpy as np
+
+data2 = {"id":[1, 2, 3, 4, 5, 6, 7, 8],
+        "city":["Istanbul", "Lviv", "Kyiv", "Chop", "Istanbul", "Lviv", "Rivne", "Odesa"]}
+data2 = pd.DataFrame(data2)
+
+data2.loc[data2.city == "Lviv", "home"] = "my_home"
+data2.loc[data2.city != "Lviv", "home"] = "not_home"
+data2.loc[data2.city == "Kyiv", "home"] = "center"
+
+#6# if else (| &)into DataFrame ******************************************
+import pandas as pd
+import numpy as np
+
+data3 = {"id":[1, 1, 2, 2, 3, 3, 4, 5],
+        "city":["Lviv", "Lviv", "Lviv", "Kyiv", "Kyiv", "Kyiv", "Istanbul", "Odesa"]}
+data3 = pd.DataFrame(data3)
+
+data3["home"] = "hto.zna"
+data3.loc[(data3.id == 1) | (data3.city == "Lviv"), "home"] = "my_home"  
+data3.loc[(data3.id == 3) & (data3.city == "Kyiv"), "home"] = "cener"
+
+
+
