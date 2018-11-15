@@ -1,0 +1,24 @@
+import datetime
+import pandas as pd
+
+data1 = {"ky":[2, 2, 2, 2, 8, 8, 8, 8, 4, 4, 4, 4],
+        "month":[2, 3, 1, 4, 33, 22, 44, 11, 444, 111, 222, 333],
+        "city":["Lviv", "Kyiv", "Rivne", "Istanbul", "Lviv", "Kyiv", "Rivne", "Istanbul", "Lviv", "Kyiv", "Rivne", "Istanbul"]}
+data1 = pd.DataFrame(data1)
+
+data2 = data1[data1.city == "Lviv"]
+data3 = data1[data1.city != "Lviv"]
+
+data4 = data1[(data1.city == "Lviv") & (data1.ky == 2)]
+data5 = data1[(data1.city == "Lviv") | (data1.ky == 8)]
+
+data6 = data1[((data1.city == "Lviv") & (data1.ky == 2)) | (data1.month == 333)]
+
+data7 = data1[(data1.month >= 10) & (data1.month <= 220)]
+
+# or!
+#data8 = data1[data1["city"] == "Lviv"]
+
+# filter time
+all_cash = data1[(data1["date"]>datetime.date(2014,12,1)) & (data1["date"]<datetime.date(2017,8,1))]
+
